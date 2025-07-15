@@ -117,6 +117,7 @@
       text-align: center;
       line-height: 1.6;
       margin-top: 1.5rem;
+      display: none;
     }
   </style>
 </head>
@@ -147,10 +148,9 @@
 
     <button class="calc" onclick="calculateProgress()">📊 Berechnen</button>
 
-    <!-- Invisible fallback for script compatibility -->
     <div style="display:none"><div id="progressBar" class="progress"></div></div>
 
-    <div class="output">
+    <div class="output" id="outputSection">
       <div id="result"></div>
       <div id="remainingHours"></div>
       <div id="targetDate"></div>
@@ -183,6 +183,8 @@
       document.getElementById('targetDate').textContent =
         `🎯 Voraussichtliches Ziel: ${targetDate.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })}`;
 
+      document.getElementById('outputSection').style.display = 'block';
+
       localStorage.setItem('ivaoData', JSON.stringify({ currentHours, targetHours, dailyHours, daysPerWeek }));
     }
 
@@ -197,7 +199,6 @@
         document.getElementById('targetHours').value = saved.targetHours;
         document.getElementById('dailyHours').value = saved.dailyHours;
         document.getElementById('daysPerWeek').value = saved.daysPerWeek;
-        calculateProgress();
       }
     });
   </script>
