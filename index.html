@@ -127,22 +127,22 @@
 
     <div class="input-group">
       <label for="currentHours" title="Alle bisher geflogenen Stunden auf deinem IVAO-Konto">Aktuelle Stunden <span title="Alle bisher geflogenen Stunden auf deinem IVAO-Konto">🛈</span></label>
-      <input type="number" id="currentHours" value="4569">
+      <input type="number" id="currentHours">
     </div>
 
     <div class="input-group">
       <label for="targetHours" title="Gesamtziel deiner Flugstunden auf IVAO">Ziel-Stunden <span title="Gesamtziel deiner Flugstunden auf IVAO">🛈</span></label>
-      <input type="number" id="targetHours" value="5000">
+      <input type="number" id="targetHours">
     </div>
 
     <div class="input-group">
       <label for="dailyHours" title="Wie lange du an einem typischen Tag fliegst">Stunden / Tag <span title="Wie lange du an einem typischen Tag fliegst">🛈</span></label>
-      <input type="number" id="dailyHours" value="6">
+      <input type="number" id="dailyHours">
     </div>
 
     <div class="input-group">
       <label for="daysPerWeek" title="An wie vielen Tagen pro Woche du in der Regel fliegst">Tage / Woche <span title="An wie vielen Tagen pro Woche du in der Regel fliegst">🛈</span></label>
-      <input type="number" id="daysPerWeek" value="6">
+      <input type="number" id="daysPerWeek">
     </div>
 
     <button class="calc" onclick="calculateProgress()">📊 Berechnen</button>
@@ -160,14 +160,14 @@
   <script>
     function calculateProgress() {
       const currentHours = parseInt(document.getElementById('currentHours').value) || 0;
-      const targetHours = parseInt(document.getElementById('targetHours').value) || 5000;
+      const targetHours = parseInt(document.getElementById('targetHours').value) || 0;
       const dailyHours = parseInt(document.getElementById('dailyHours').value) || 0;
       const daysPerWeek = parseInt(document.getElementById('daysPerWeek').value) || 0;
 
       const remaining = targetHours - currentHours;
       const weeklyHours = dailyHours * daysPerWeek;
-      const weeksNeeded = remaining / weeklyHours;
-      const percent = (currentHours / targetHours) * 100;
+      const weeksNeeded = weeklyHours > 0 ? remaining / weeklyHours : 0;
+      const percent = targetHours > 0 ? (currentHours / targetHours) * 100 : 0;
 
       const progressBar = document.getElementById('progressBar');
       if (progressBar) progressBar.style.width = `${percent.toFixed(1)}%`;
